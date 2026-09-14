@@ -32,12 +32,25 @@ jobs:
         run: npm run desktop:build:${{ matrix.target }}
       - name: Upload desktop artifacts
         uses: actions/upload-artifact@v4
+        if: matrix.target == 'win'
         with:
           name: theta-workplace-${{ matrix.target }}
-          path: release/*
+          path: |
+            release/*.exe
+            release/*.blockmap
+            release/latest.yml
+      - name: Upload Linux artifacts
+        uses: actions/upload-artifact@v4
+        if: matrix.target == 'linux'
+        with:
+          name: theta-workplace-${{ matrix.target }}
+          path: |
+            release/*.AppImage
+            release/*.blockmap
+            release/latest-linux.yml
 
   publish:
-    needs: build
+    needs: [build, mobile]
     runs-on: ubuntu-latest
     steps:
       - name: Download desktop artifacts
@@ -52,3 +65,31 @@ jobs:
         run: |
           gh release delete "$TAG" --yes || true
           gh release create "$TAG" release-assets/* --title "theta-workplace $TAG" --generate-notes
+
+  mobile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Android APK
+        run: |
+          npx cap sync android
+          chmod +x android/gradlew
+          android/gradlew --no-daemon assembleDebug
+      - name: Upload Android artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: theta-workplace-android
+          path: android/app/build/outputs/apk/debug/app-debug.apk

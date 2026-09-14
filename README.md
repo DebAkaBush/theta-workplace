@@ -74,3 +74,9 @@ git push origin v1.0.1
 ```
 
 GitHub Actions Windows installer ve Linux AppImage'i oluşturup Release'e yükler. Kullanıcılar yeni Release çıktığında uygulama içinden güncelleme bildirimi alır. Sadece `main` branch'ine commit göndermek tek başına masaüstü güncellemesi yayınlamaz; sürüm tag'i gerekir.
+
+## Android uygulaması
+
+Android APK, GitHub Actions tarafından her sürüm tag'inde üretilir ve GitHub Release'e yüklenir. APK ilk açıldığında theta-workplace sunucu adresini ister. Local kullanımda `http://192.168.x.x:3000`, uzaktan kullanımda Tailscale HTTPS adresini girin; bu adres cihazda hatırlanır ve ana ekrandaki sunucu düğmesinden değiştirilebilir.
+
+Android güncellemesi yeni Release APK'sini kontrol eder ve indirme sayfasını açar. Android güvenlik modeli nedeniyle kurulum için kullanıcı onayı gerekir; tamamen sessiz güncelleme yalnızca yönetilen kurumsal cihazlarda veya Play Store/MDM üzerinden mümkündür.

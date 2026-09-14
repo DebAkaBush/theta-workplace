@@ -1,10 +1,13 @@
 const { app, BrowserWindow, dialog, shell } = require('electron');
+const { ipcMain } = require('electron');
 const path = require('path');
 const { autoUpdater } = require('electron-updater');
 
 const APP_PORT = 3000;
 let window;
 let server;
+
+ipcMain.on('toggle-fullscreen', () => { if (window) window.setFullScreen(!window.isFullScreen()); });
 
 function startServer() {
   process.env.HOST = '127.0.0.1';
@@ -33,10 +36,13 @@ function createWindow() {
     backgroundColor: '#f4f7f2',
     title: 'theta-workplace',
     icon: path.join(__dirname, 'icon.svg'),
-    webPreferences: { contextIsolation: true, sandbox: true }
+    webPreferences: { contextIsolation: true, sandbox: true, preload: path.join(__dirname, 'preload.js') }
   });
   window.removeMenu();
   window.loadURL(`http://127.0.0.1:${APP_PORT}`);
+  window.webContents.on('before-input-event', (event, input) => {
+    if (input.type === 'keyDown' && input.key === 'F11') { event.preventDefault(); window.setFullScreen(!window.isFullScreen()); }
+  });
   window.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('http')) shell.openExternal(url);
     return { action: 'deny' };

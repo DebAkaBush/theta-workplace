@@ -5,6 +5,8 @@ const chatView = $('#chat-view');
 const savedTheme = localStorage.getItem('theta-workplace-theme');
 const savedLanguage = localStorage.getItem('theta-workplace-language') || 'tr';
 let language = savedLanguage;
+const mobileServerKey = 'theta-workplace-server-url';
+let mobileServerUrl = localStorage.getItem(mobileServerKey) || '';
 if (savedTheme === 'dark') document.documentElement.dataset.theme = 'dark';
 
 const copy = {
@@ -25,10 +27,24 @@ function applyLanguage(nextLanguage) {
 }
 
 async function api(url, options = {}) {
-  const response = await fetch(url, { ...options, headers: { 'Content-Type': 'application/json', ...(state.token ? { Authorization: `Bearer ${state.token}` } : {}), ...(options.headers || {}) } });
+  const response = await fetch(`${mobileServerUrl}${url}`, { ...options, headers: { 'Content-Type': 'application/json', ...(state.token ? { Authorization: `Bearer ${state.token}` } : {}), ...(options.headers || {}) } });
   const data = await response.json();
   if (!response.ok) throw new Error(data.error || 'Bir hata oluştu.');
   return data;
+}
+
+function configureMobileServer() {
+  if (!window.Capacitor || mobileServerUrl) return;
+  const address = prompt('theta-workplace sunucu adresi / theta-workplace server URL:');
+  if (address) { mobileServerUrl = address.replace(/\/$/, ''); localStorage.setItem(mobileServerKey, mobileServerUrl); }
+}
+
+async function checkMobileUpdate() {
+  try {
+    const response = await fetch('https://api.github.com/repos/DebAkaBush/theta-workplace/releases/latest', { headers: { Accept: 'application/vnd.github+json' } });
+    const release = await response.json();
+    if (release.html_url) window.open(release.html_url, '_blank');
+  } catch { showToast(language === 'tr' ? 'Güncelleme kontrol edilemedi.' : 'Could not check for updates.'); }
 }
 
 async function loadConnectionStatus() {
@@ -138,6 +154,10 @@ $('#room-form').addEventListener('submit', async event => { event.preventDefault
 $('#message-form').addEventListener('submit', async event => { event.preventDefault(); const input = $('#message-input'); const messageText = input.value.trim(); if (!messageText) return; if (messageText.toLowerCase() === '/turnoff') { input.value = ''; await runCommand('/turnoff'); return; } try { const message = await api(`/api/rooms/${state.room.id}/messages`, { method: 'POST', body: JSON.stringify({ text: messageText }) }); addMessage(message); input.value = ''; } catch (error) { showToast(error.message); } });
 $('#feedback-form').addEventListener('submit', async event => { event.preventDefault(); const status = $('#feedback-status'); status.textContent = ''; try { const result = await api('/api/feedback', { method: 'POST', body: JSON.stringify({ category: $('#feedback-category').value, name: $('#feedback-name').value, email: $('#feedback-email').value, message: $('#feedback-message').value }) }); status.textContent = result.sent ? text('feedbackSent') : text('feedbackSaved'); $('#feedback-form').reset(); } catch (error) { status.textContent = error.message; } });
 document.querySelectorAll('.language-button').forEach(button => button.addEventListener('click', () => applyLanguage(button.dataset.language)));
+
+configureMobileServer();
+if (window.Capacitor) { $('#server-url-button').classList.remove('hidden'); $('#mobile-update-button').classList.remove('hidden'); $('#server-url-button').addEventListener('click', () => { mobileServerUrl = ''; configureMobileServer(); loadConnectionStatus(); loadRooms(); }); $('#mobile-update-button').addEventListener('click', checkMobileUpdate); }
+if (window.thetaDesktop) { $('#fullscreen-toggle').classList.remove('hidden'); $('#fullscreen-toggle').addEventListener('click', () => window.thetaDesktop.toggleFullscreen()); }
 loadRooms();
 
 $('#theme-toggle').addEventListener('click', () => {

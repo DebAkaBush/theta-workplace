@@ -10,7 +10,7 @@
   <main class="shell">
     <header class="topbar">
       <a class="brand" href="/"><span class="brand-mark">θ</span><span>theta-workplace</span></a>
-      <div class="topbar-actions"><a class="guide-link" href="/guide" data-tr="Kullanım rehberi" data-en="User guide">Kullanım rehberi</a><div class="language-switch" role="group" aria-label="Dil seçimi"><button class="language-button active" data-language="tr" type="button">TR</button><button class="language-button" data-language="en" type="button">EN</button></div><span id="connection-status" class="network-pill"><i></i> Yerel ağda çalışıyor</span><button id="theme-toggle" class="theme-toggle" type="button" title="Siyah temaya geç" aria-label="Siyah temaya geç">☾</button></div>
+      <div class="topbar-actions"><a class="guide-link" href="/guide" data-tr="Kullanım rehberi" data-en="User guide">Kullanım rehberi</a><div class="language-switch" role="group" aria-label="Dil seçimi"><button class="language-button active" data-language="tr" type="button">TR</button><button class="language-button" data-language="en" type="button">EN</button></div><span id="connection-status" class="network-pill"><i></i> Yerel ağda çalışıyor</span><button id="fullscreen-toggle" class="theme-toggle hidden" type="button" title="Tam ekran" aria-label="Tam ekran">⛶</button><button id="theme-toggle" class="theme-toggle" type="button" title="Siyah temaya geç" aria-label="Siyah temaya geç">☾</button></div>
     </header>
 
     <section id="landing" class="view">
@@ -19,7 +19,7 @@
         <h1 id="hero-title">Ekibinizin konuştuğu<br><em>yerel alan.</em></h1>
         <p class="lede" data-tr="Sunucu sizde, veriler sizde. Toplantılar, ekipler ve hızlı kararlar için sade bir iletişim alanı." data-en="Your server, your data. A focused communication space for meetings, teams, and quick decisions.">Sunucu sizde, veriler sizde. Toplantılar, ekipler ve hızlı kararlar için sade bir iletişim alanı.</p>
         <button id="new-room-button" class="button button-primary"><span id="new-room-label" data-tr="Yeni oda oluştur" data-en="Create a room">Yeni oda oluştur</span> <span>→</span></button>
-        <div class="connection-card"><div><span id="connection-label" class="connection-label">Online</span><p id="connection-detail">Bağlantı kontrol ediliyor...</p></div><div class="connection-data"><span id="local-ip">Local IP: --</span><span id="tailscale-ip">Tailscale IP: --</span><span id="authorized-user">Yetkili giriş: --</span></div></div>
+        <div class="connection-card"><div><span id="connection-label" class="connection-label">Online</span><p id="connection-detail">Bağlantı kontrol ediliyor...</p></div><div class="connection-data"><span id="local-ip">Local IP: --</span><span id="tailscale-ip">Tailscale IP: --</span><span id="authorized-user">Yetkili giriş: --</span><button id="server-url-button" class="server-url-button hidden" type="button">Sunucu adresini değiştir</button><button id="mobile-update-button" class="server-url-button hidden" type="button">Güncellemeyi kontrol et</button></div></div>
       </div>
       <div class="rooms-panel">
         <div class="section-heading"><div><p class="eyebrow" data-tr="Açık odalar" data-en="Open rooms">Açık odalar</p><h2 id="rooms-title" data-tr="Şimdi neler oluyor?" data-en="What is happening now?">Şimdi neler oluyor?</h2></div><button id="refresh-button" class="icon-button" title="Odaları yenile" data-title-tr="Odaları yenile" data-title-en="Refresh rooms">↻</button></div>

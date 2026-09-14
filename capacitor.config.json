@@ -1,0 +1,8 @@
+{
+  "appId": "com.debakush.theta.workplace",
+  "appName": "theta-workplace",
+  "webDir": "public",
+  "android": {
+    "backgroundColor": "#f4f7f2"
+  }
+}

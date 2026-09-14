@@ -14,9 +14,13 @@
     "desktop:build:linux": "electron-builder --linux",
     "desktop:publish:win": "electron-builder --win --publish always",
     "desktop:publish:linux": "electron-builder --linux --publish always",
-    "desktop:release": "electron-builder --win --linux --publish always"
+    "desktop:release": "electron-builder --win --linux --publish always",
+    "mobile:sync": "npx cap sync android",
+    "mobile:build": "npm run mobile:sync && cd android && gradlew.bat assembleDebug"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/core": "^8.5.2",
     "dotenv": "^17.4.2",
     "electron-updater": "^6.8.9",
     "nodemailer": "^10.0.10"
@@ -50,6 +54,7 @@
     }
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.5.2",
     "electron": "^44.3.0",
     "electron-builder": "^26.15.3"
   }
