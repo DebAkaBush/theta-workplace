@@ -12,6 +12,8 @@
     "desktop": "electron .",
     "desktop:build:win": "electron-builder --win",
     "desktop:build:linux": "electron-builder --linux",
+    "desktop:publish:win": "electron-builder --win --publish always",
+    "desktop:publish:linux": "electron-builder --linux --publish always",
     "desktop:release": "electron-builder --win --linux --publish always"
   },
   "dependencies": {
