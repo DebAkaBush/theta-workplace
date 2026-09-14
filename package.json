@@ -1,6 +1,6 @@
 {
   "name": "theta-workplace",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "author": "DebAkaBush <cinardag3455@gmail.com>",
   "main": "desktop/main.js",
