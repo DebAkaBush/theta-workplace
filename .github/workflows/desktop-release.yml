@@ -84,10 +84,11 @@ jobs:
       - name: Find Android APK
         run: find android -type f -name '*.apk' -print
       - name: Upload Android artifact
+        uses: actions/upload-artifact@v4
         with:
           name: theta-workplace-android
           path: android/**/*.apk
-            android/gradlew --no-daemon assembleDebug --stacktrace
+          if-no-files-found: error
 
   publish:
     needs: [build, mobile]
