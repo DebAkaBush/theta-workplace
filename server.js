@@ -11,7 +11,7 @@ const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 const TAILSCALE_MODE = process.env.TAILSCALE_MODE === 'true';
 const ROOT = __dirname;
-const DATA_DIR = path.join(ROOT, 'data');
+const DATA_DIR = process.env.THETA_DATA_DIR || path.join(ROOT, 'data');
 const DATA_FILE = path.join(DATA_DIR, 'rooms.json');
 const FEEDBACK_FILE = path.join(DATA_DIR, 'feedback.json');
 const FEEDBACK_TO = 'admin.theta.server@gmail.com';
@@ -324,3 +324,5 @@ server.listen(PORT, HOST, () => {
   console.log(`Ağdaki diğer cihazlar: http://${networkAddress()}:${PORT}`);
   if (TAILSCALE_MODE) console.log('Tailscale kimlik doğrulaması etkin.');
 });
+
+module.exports = server;

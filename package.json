@@ -2,14 +2,44 @@
   "name": "theta-workplace",
   "version": "1.0.0",
   "private": true,
+  "author": "DebAkaBush <cinardag3455@gmail.com>",
+  "main": "desktop/main.js",
   "description": "Private workplace chat over local networks and Tailscale",
   "scripts": {
     "start": "node server.js",
     "start:tailscale": "set TAILSCALE_MODE=true&& set HOST=127.0.0.1&& node server.js",
-    "start:tailscale:linux": "TAILSCALE_MODE=true HOST=127.0.0.1 node server.js"
+    "start:tailscale:linux": "TAILSCALE_MODE=true HOST=127.0.0.1 node server.js",
+    "desktop": "electron .",
+    "desktop:build:win": "electron-builder --win",
+    "desktop:build:linux": "electron-builder --linux",
+    "desktop:release": "electron-builder --win --linux --publish always"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
+    "electron-updater": "^6.8.9",
     "nodemailer": "^10.0.10"
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.debakush.theta-workplace",
+    "productName": "theta-workplace",
+    "files": [
+      "desktop/**/*",
+      "public/**/*",
+      "server.js",
+      "package.json",
+      "node_modules/**/*"
+    ],
+    "directories": { "output": "release" },
+    "win": { "target": "nsis", "icon": "desktop/icon.svg" },
+    "linux": { "target": "AppImage", "category": "Network", "icon": "desktop/icon.svg" },
+    "publish": { "provider": "github", "owner": "DebAkaBush", "repo": "theta-workplace" }
+  },
+  "devDependencies": {
+    "electron": "^44.3.0",
+    "electron-builder": "^26.15.3"
   }
 }

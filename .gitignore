@@ -4,3 +4,5 @@ data/feedback.json
 .env
 *.log
 .DS_Store
+release/
+dist/
