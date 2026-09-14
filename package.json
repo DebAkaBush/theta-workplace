@@ -9,6 +9,7 @@
     "start:tailscale:linux": "TAILSCALE_MODE=true HOST=127.0.0.1 node server.js"
   },
   "dependencies": {
+    "dotenv": "^17.4.2",
     "nodemailer": "^10.0.10"
   }
 }

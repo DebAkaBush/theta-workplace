@@ -36,7 +36,7 @@ Ayrıntılı bilgi için [TAILSCALE.md](TAILSCALE.md) dosyasına bakın.
 
 ## Feedback e-postası
 
-Feedback formunun `admin.theta.server@gmail.com` adresine otomatik mail göndermesi için SMTP değişkenlerini sunucuda tanımlayın. Örnek değişkenler [.env.example](.env.example) dosyasındadır. Gmail kullanıyorsanız normal hesap parolası yerine Google hesap güvenliğinden oluşturulan uygulama parolasını kullanın.
+Feedback formu `admin.theta.server@gmail.com` adresine otomatik mail gönderir. İlk kurulumda `.env.example` dosyasını `.env` olarak kopyalayın ve `FEEDBACK_SMTP_PASS` alanına bu Gmail hesabı için oluşturduğunuz Google uygulama parolasını yazın. Normal Gmail hesap parolası SMTP için çalışmaz. `.env` dosyası GitHub'a gönderilmez.
 
 ## Siteye gömme
 
