@@ -75,16 +75,19 @@ jobs:
       - name: Build Android APK
         run: |
           npx cap sync android
+        - name: Setup Android SDK
+          uses: android-actions/setup-android@v3
+        - name: Install Android SDK 36
+          run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
           chmod +x android/gradlew
           android/gradlew --no-daemon assembleDebug
       - name: Find Android APK
         run: find android -type f -name '*.apk' -print
       - name: Upload Android artifact
-        uses: actions/upload-artifact@v4
         with:
           name: theta-workplace-android
           path: android/**/*.apk
-          if-no-files-found: error
+            android/gradlew --no-daemon assembleDebug --stacktrace
 
   publish:
     needs: [build, mobile]
