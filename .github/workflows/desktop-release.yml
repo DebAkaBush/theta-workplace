@@ -68,6 +68,10 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install Android SDK 36
+        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
       - name: Install dependencies
         run: npm ci
       - name: Setup Gradle
@@ -75,10 +79,6 @@ jobs:
       - name: Build Android APK
         run: |
           npx cap sync android
-        - name: Setup Android SDK
-          uses: android-actions/setup-android@v3
-        - name: Install Android SDK 36
-          run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
           chmod +x android/gradlew
           android/gradlew --no-daemon assembleDebug
       - name: Find Android APK
