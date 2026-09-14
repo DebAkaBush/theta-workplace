@@ -58,6 +58,8 @@ Windows installer üretmek için Windows'ta:
 npm run desktop:build:win
 ```
 
+Installer `release/theta-workplace Setup 1.0.0.exe` altında oluşur. Bu dosya 100 MB üzerindeyse Git repository'sine commit edilmemelidir; GitHub Release asset'i olarak yayınlanır. Tag tabanlı GitHub Actions workflow'u bunu otomatik yapar.
+
 Linux AppImage üretmek için Linux/WSL ortamında:
 
 ```bash
