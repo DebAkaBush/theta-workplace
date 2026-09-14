@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  build:
     strategy:
       matrix:
         include:
@@ -29,6 +29,26 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build and publish desktop apps
-        run: npm run desktop:publish:${{ matrix.target }}
+        run: npm run desktop:build:${{ matrix.target }}
+      - name: Upload desktop artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: theta-workplace-${{ matrix.target }}
+          path: release/*
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download desktop artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+      - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release delete "$TAG" --yes || true
+          gh release create "$TAG" release-assets/* --title "theta-workplace $TAG" --generate-notes
