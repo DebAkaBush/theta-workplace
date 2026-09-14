@@ -37,6 +37,7 @@ async function loadConnectionStatus() {
     $('#connection-label').textContent = 'Online';
     $('#connection-detail').textContent = session.tailscale ? text('tailscaleReady') : text('localReady');
     $('#connection-status').innerHTML = '<i></i> Online';
+    $('#local-ip').textContent = `Local IP: ${session.localIp || '--'}:3000`;
     $('#tailscale-ip').textContent = `Tailscale IP: ${session.tailscaleIp || '--'}`;
     $('#authorized-user').textContent = `${language === 'tr' ? 'Yetkili giriş' : 'Authorized user'}: ${session.identity?.name || text('localUser')}`;
   } catch {

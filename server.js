@@ -123,12 +123,13 @@ function sendFile(res, filePath, contentType) {
 
 function networkAddress() {
   const interfaces = os.networkInterfaces();
+  const candidates = [];
   for (const entries of Object.values(interfaces)) {
     for (const entry of entries || []) {
-      if (entry.family === 'IPv4' && !entry.internal && !entry.address.startsWith('169.254.')) return entry.address;
+      if (entry.family === 'IPv4' && !entry.internal && !entry.address.startsWith('169.254.') && !entry.address.startsWith('192.168.56.') && !entry.address.startsWith('192.168.176.')) candidates.push(entry.address);
     }
   }
-  return 'localhost';
+  return candidates.find(address => address.startsWith('192.168.')) || candidates[0] || 'localhost';
 }
 
 const server = http.createServer(async (req, res) => {
@@ -143,7 +144,7 @@ const server = http.createServer(async (req, res) => {
   if (method === 'GET' && pathname === '/styles.css') return sendFile(res, path.join(ROOT, 'public', 'styles.css'), 'text/css; charset=utf-8');
 
   if (method === 'GET' && pathname === '/api/session') {
-    return json(res, 200, { online: true, tailscale: TAILSCALE_MODE, tailscaleIp: tailscaleAddress(), identity: tailscaleIdentity(req) });
+    return json(res, 200, { online: true, tailscale: TAILSCALE_MODE, tailscaleIp: tailscaleAddress(), localIp: networkAddress(), identity: tailscaleIdentity(req) });
   }
 
   if (method === 'POST' && pathname === '/api/feedback') {
