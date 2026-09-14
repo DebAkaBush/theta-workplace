@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>theta-workplace | Özel ekip iletişimi</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="brand-mark">θ</span><span>theta-workplace</span></a>
+      <div class="topbar-actions"><a class="guide-link" href="/guide">Kullanım rehberi</a><span id="connection-status" class="network-pill"><i></i> Yerel ağda çalışıyor</span><button id="theme-toggle" class="theme-toggle" type="button" title="Siyah temaya geç" aria-label="Siyah temaya geç">☾</button></div>
+    </header>
+
+    <section id="landing" class="view">
+      <div class="intro">
+        <p class="eyebrow">Kurum içi iletişim, dışarı çıkmadan</p>
+        <h1>Ekibinizin konuştuğu<br><em>yerel alan.</em></h1>
+        <p class="lede">Sunucu sizde, veriler sizde. Toplantılar, ekipler ve hızlı kararlar için sade bir iletişim alanı.</p>
+        <button id="new-room-button" class="button button-primary">Yeni oda oluştur <span>→</span></button>
+        <div class="connection-card"><div><span id="connection-label" class="connection-label">Online</span><p id="connection-detail">Bağlantı kontrol ediliyor...</p></div><div class="connection-data"><span id="tailscale-ip">Tailscale IP: --</span><span id="authorized-user">Yetkili giriş: --</span></div></div>
+      </div>
+      <div class="rooms-panel">
+        <div class="section-heading"><div><p class="eyebrow">Açık odalar</p><h2>Şimdi neler oluyor?</h2></div><button id="refresh-button" class="icon-button" title="Odaları yenile">↻</button></div>
+        <div id="room-list" class="room-list"><div class="empty-state">Odalar yükleniyor...</div></div>
+      </div>
+    </section>
+
+    <section id="chat-view" class="view hidden">
+      <div class="chat-header"><button id="back-button" class="back-link">← Odalara dön</button><div><p class="eyebrow">Aktif oda</p><h2 id="chat-title"></h2></div><div class="chat-actions"><span id="member-count" class="member-count"></span><button id="close-room-button" class="close-room-button hidden" type="button">Odayı kapat</button></div></div>
+      <div id="request-panel" class="request-panel hidden"><div><p class="eyebrow">Oda erişimi</p><strong>Onay bekleyenler</strong></div><div id="request-list"></div></div>
+      <div class="chat-layout"><div id="message-list" class="message-list"></div><form id="message-form" class="composer"><input id="message-input" autocomplete="off" maxlength="2000" placeholder="Mesajınızı yazın..."><button class="button button-primary" title="Mesaj gönder">Gönder <span>↗</span></button></form></div>
+    </section>
+    <section class="feedback-section"><div><p class="eyebrow">Görüşlerin önemli</p><h2>theta-workplace’i birlikte geliştirelim.</h2><p class="feedback-copy">Bir hata, fikir veya geliştirme önerisi bırak. Mesajın doğrudan ekibe iletilir.</p></div><form id="feedback-form" class="feedback-form"><select id="feedback-category"><option>Genel</option><option>Hata bildirimi</option><option>Öneri</option><option>Tasarım</option></select><input id="feedback-name" maxlength="80" placeholder="Adınız (isteğe bağlı)"><input id="feedback-email" type="email" maxlength="160" placeholder="E-posta (isteğe bağlı)"><textarea id="feedback-message" maxlength="5000" required placeholder="Mesajınız..."></textarea><button class="button button-primary" type="submit">Feedback gönder <span>↗</span></button><p id="feedback-status" class="form-error"></p></form></section>
+    <footer class="site-footer">theta-project made by deb</footer>
+  </main>
+
+  <dialog id="room-dialog"><form id="room-form" method="dialog"><button type="button" class="dialog-close" id="close-dialog">×</button><p class="eyebrow">Yeni alan</p><h2>Bir oda açın.</h2><p class="dialog-copy">Ekibiniz için bir isim seçin. Tailscale üzerinden gelen kişiler bu isimden onay ister.</p><label>Oda adı<input id="room-name" required minlength="2" maxlength="60" placeholder="Örn. Tasarım ekibi"></label><label>Sizin adınız<input id="owner-name" required minlength="2" maxlength="32" placeholder="Örn. Ayşe"></label><label>Parola <small>(isteğe bağlı)</small><input id="room-password" type="password" minlength="4" maxlength="100" placeholder="En az 4 karakter"></label><button class="button button-primary" type="submit">Odayı oluştur <span>→</span></button><p id="dialog-error" class="form-error"></p></form></dialog>
+  <div id="toast" class="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>theta-workplace | Kullanım rehberi</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell guide-shell">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="brand-mark">θ</span><span>theta-workplace</span></a>
+      <div class="topbar-actions"><div class="language-switch" role="group" aria-label="Language selection"><button class="language-button active" data-language="tr" type="button">TR</button><button class="language-button" data-language="en" type="button">EN</button></div><button id="guide-theme-toggle" class="theme-toggle" type="button" title="Siyah temaya geç" aria-label="Siyah temaya geç">☾</button></div>
+    </header>
+
+    <section class="guide-hero"><p class="eyebrow" data-tr="Başlangıç rehberi" data-en="Getting started">Başlangıç rehberi</p><h1 data-tr="Ekibiniz için özel çalışma alanı." data-en="A private workspace for your team.">Ekibiniz için özel çalışma alanı.</h1><p class="guide-lede" data-tr="theta-workplace, verileri kendi sunucunuzda tutarak ekiplerin local ağda veya Tailscale ile uzaktan iletişim kurmasını sağlar." data-en="theta-workplace keeps your data on your own server and lets teams communicate over a local network or remotely through Tailscale.">theta-workplace, verileri kendi sunucunuzda tutarak ekiplerin local ağda veya Tailscale ile uzaktan iletişim kurmasını sağlar.</p></section>
+
+    <section class="guide-grid">
+      <article class="guide-card"><span class="guide-number">01</span><h2 data-tr="Ne işe yarar?" data-en="What is it for?">Ne işe yarar?</h2><p data-tr="Kurum içi ekipler için oda tabanlı mesajlaşma sunar. Odalar oluşturabilir, parola koyabilir, oda sahibinin onay sistemiyle Tailscale üzerinden gelen kişileri kabul veya reddedebilirsiniz." data-en="It provides room-based messaging for internal teams. You can create rooms, add passwords, and let room owners approve or reject people connecting through Tailscale.">Kurum içi ekipler için oda tabanlı mesajlaşma sunar. Odalar oluşturabilir, parola koyabilir, oda sahibinin onay sistemiyle Tailscale üzerinden gelen kişileri kabul veya reddedebilirsiniz.</p></article>
+      <article class="guide-card"><span class="guide-number">02</span><h2 data-tr="Local ağda kullanma" data-en="Use it on a local network">Local ağda kullanma</h2><p data-tr="Sunucunun çalıştığı bilgisayar ile telefon veya diğer cihazlar aynı Wi-Fi ağında olmalı. Sunucuyu başlatın ve bilgisayarın Wi-Fi IP adresini port 3000 ile açın." data-en="The server computer and the phone or other devices must be on the same Wi-Fi network. Start the server and open the computer's Wi-Fi IP address on port 3000.">Sunucunun çalıştığı bilgisayar ile telefon veya diğer cihazlar aynı Wi-Fi ağında olmalı. Sunucuyu başlatın ve bilgisayarın Wi-Fi IP adresini port 3000 ile açın.</p><pre>npm start
+http://BILGISAYAR-IP:3000</pre></article>
+      <article class="guide-card"><span class="guide-number">03</span><h2 data-tr="Tailscale ile uzaktan kullanma" data-en="Use it remotely with Tailscale">Tailscale ile uzaktan kullanma</h2><p data-tr="Sunucuda Tailscale'e giriş yapın. Telefon ve izin verdiğiniz kişiler de aynı tailnet'e bağlansın. Tailscale Serve ile HTTPS adresi oluşturun. Odaya giriş için ayrıca oda sahibinin onayı gerekir." data-en="Sign in to Tailscale on the server. Connect the phone and approved people to the same tailnet. Use Tailscale Serve to create an HTTPS address. Room access still requires approval from the room owner.">Sunucuda Tailscale'e giriş yapın. Telefon ve izin verdiğiniz kişiler de aynı tailnet'e bağlansın. Tailscale Serve ile HTTPS adresi oluşturun. Odaya giriş için ayrıca oda sahibinin onayı gerekir.</p><pre>npm run start:tailscale
+tailscale serve --bg http://127.0.0.1:3000</pre></article>
+      <article class="guide-card"><span class="guide-number">04</span><h2 data-tr="Sunucu kurulumu" data-en="Install on a server">Sunucu kurulumu</h2><p data-tr="Uygulamayı Windows, Ubuntu, WSL veya bir VPS üzerinde çalıştırabilirsiniz. Node.js 18 veya üzeri yeterlidir. Windows için PowerShell, Ubuntu için shell kurulum scripti vardır." data-en="You can run the app on Windows, Ubuntu, WSL, or a VPS. Node.js 18 or newer is enough. A PowerShell installer is provided for Windows and a shell installer for Ubuntu.">Uygulamayı Windows, Ubuntu, WSL veya bir VPS üzerinde çalıştırabilirsiniz. Node.js 18 veya üzeri yeterlidir. Windows için PowerShell, Ubuntu için shell kurulum scripti vardır.</p><pre>npm install
+npm start</pre></article>
+    </section>
+
+    <section class="guide-steps"><p class="eyebrow" data-tr="Hızlı başlangıç" data-en="Quick start">Hızlı başlangıç</p><h2 data-tr="Üç adımda çalıştırın." data-en="Run it in three steps.">Üç adımda çalıştırın.</h2><ol><li data-tr="Node.js 18+ kurun ve proje klasörünü açın." data-en="Install Node.js 18+ and open the project folder.">Node.js 18+ kurun ve proje klasörünü açın.</li><li data-tr="npm install ardından npm start komutunu çalıştırın." data-en="Run npm install, then npm start.">npm install ardından npm start komutunu çalıştırın.</li><li data-tr="Local için localhost:3000, uzaktan kullanım için Tailscale HTTPS adresini açın." data-en="Open localhost:3000 for local use, or the Tailscale HTTPS address for remote access.">Local için localhost:3000, uzaktan kullanım için Tailscale HTTPS adresini açın.</li></ol></section>
+    <footer class="site-footer">theta-project made by deb</footer>
+  </main>
+  <script src="/guide.js"></script>
+</body>
+</html>

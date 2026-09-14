@@ -1,0 +1,14 @@
+{
+  "name": "theta-workplace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Private workplace chat over local networks and Tailscale",
+  "scripts": {
+    "start": "node server.js",
+    "start:tailscale": "set TAILSCALE_MODE=true&& set HOST=127.0.0.1&& node server.js",
+    "start:tailscale:linux": "TAILSCALE_MODE=true HOST=127.0.0.1 node server.js"
+  },
+  "dependencies": {
+    "nodemailer": "^10.0.10"
+  }
+}
