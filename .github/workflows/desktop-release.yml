@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   build:
+    fail-fast: false
     strategy:
       matrix:
         include:
@@ -51,6 +52,7 @@ jobs:
 
   publish:
     needs: [build, mobile]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Download desktop artifacts
