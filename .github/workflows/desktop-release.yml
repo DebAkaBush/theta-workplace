@@ -40,6 +40,7 @@ jobs:
             release/*.exe
             release/*.blockmap
             release/latest.yml
+          if-no-files-found: error
       - name: Upload Linux artifacts
         uses: actions/upload-artifact@v4
         if: matrix.target == 'linux'
@@ -49,6 +50,7 @@ jobs:
             release/*.AppImage
             release/*.blockmap
             release/latest-linux.yml
+          if-no-files-found: error
 
   publish:
     needs: [build, mobile]
@@ -60,13 +62,15 @@ jobs:
         with:
           path: release-assets
           merge-multiple: true
+      - name: List release assets
+        run: find release-assets -type f -maxdepth 2 -print
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
           name: theta-workplace ${{ github.ref_name }}
           generate_release_notes: true
-          files: release-assets/*
+          files: release-assets/**/*
 
   mobile:
     runs-on: ubuntu-latest
@@ -97,3 +101,4 @@ jobs:
         with:
           name: theta-workplace-android
           path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
