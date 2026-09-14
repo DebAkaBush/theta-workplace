@@ -1,6 +1,6 @@
 {
   "name": "theta-workplace",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "author": "DebAkaBush <cinardag3455@gmail.com>",
   "main": "desktop/main.js",
@@ -29,10 +29,23 @@
       "package.json",
       "node_modules/**/*"
     ],
-    "directories": { "output": "release" },
-    "win": { "target": "nsis", "icon": "desktop/icon.svg" },
-    "linux": { "target": "AppImage", "category": "Network", "icon": "desktop/icon.svg" },
-    "publish": { "provider": "github", "owner": "DebAkaBush", "repo": "theta-workplace" }
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "desktop/icon.svg"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Network",
+      "icon": "desktop/icon.svg"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "DebAkaBush",
+      "repo": "theta-workplace"
+    }
   },
   "devDependencies": {
     "electron": "^44.3.0",
