@@ -10,8 +10,8 @@ permissions:
 
 jobs:
   build:
-    fail-fast: false
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: windows-latest
