@@ -73,17 +73,18 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
       - name: Build Android APK
-        continue-on-error: true
         run: |
           npx cap sync android
           chmod +x android/gradlew
           android/gradlew --no-daemon assembleDebug
+      - name: Find Android APK
+        run: find android -type f -name '*.apk' -print
       - name: Upload Android artifact
         uses: actions/upload-artifact@v4
         with:
           name: theta-workplace-android
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: ignore
+          path: android/**/*.apk
+          if-no-files-found: error
 
   publish:
     needs: [build, mobile]
