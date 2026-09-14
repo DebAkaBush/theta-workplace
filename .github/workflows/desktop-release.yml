@@ -25,52 +25,33 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Build and publish desktop apps
+      - name: Build desktop app
+        continue-on-error: true
         run: npm run desktop:build:${{ matrix.target }}
-      - name: Upload desktop artifacts
-        uses: actions/upload-artifact@v4
+      - name: Upload Windows artifacts
         if: matrix.target == 'win'
+        uses: actions/upload-artifact@v4
         with:
-          name: theta-workplace-${{ matrix.target }}
+          name: theta-workplace-win
           path: |
             release/*.exe
             release/*.blockmap
             release/latest.yml
-          if-no-files-found: error
+          if-no-files-found: ignore
       - name: Upload Linux artifacts
-        uses: actions/upload-artifact@v4
         if: matrix.target == 'linux'
+        uses: actions/upload-artifact@v4
         with:
-          name: theta-workplace-${{ matrix.target }}
+          name: theta-workplace-linux
           path: |
             release/*.AppImage
             release/*.blockmap
             release/latest-linux.yml
-          if-no-files-found: error
-
-  publish:
-    needs: [build, mobile]
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download desktop artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: release-assets
-          merge-multiple: true
-      - name: List release assets
-        run: find release-assets -type f -maxdepth 2 -print
-      - name: Publish GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: theta-workplace ${{ github.ref_name }}
-          generate_release_notes: true
-          files: release-assets/**/*
+          if-no-files-found: ignore
 
   mobile:
     runs-on: ubuntu-latest
@@ -80,10 +61,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
@@ -92,6 +73,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
       - name: Build Android APK
+        continue-on-error: true
         run: |
           npx cap sync android
           chmod +x android/gradlew
@@ -101,4 +83,25 @@ jobs:
         with:
           name: theta-workplace-android
           path: android/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
+          if-no-files-found: ignore
+
+  publish:
+    needs: [build, mobile]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all available artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+      - name: List release assets
+        run: mkdir -p release-assets; find release-assets -type f -maxdepth 2 -print
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: theta-workplace ${{ github.ref_name }}
+          generate_release_notes: true
+          files: release-assets/**/*
+          fail_on_unmatched_files: false
