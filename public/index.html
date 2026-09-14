@@ -10,19 +10,19 @@
   <main class="shell">
     <header class="topbar">
       <a class="brand" href="/"><span class="brand-mark">θ</span><span>theta-workplace</span></a>
-      <div class="topbar-actions"><a class="guide-link" href="/guide">Kullanım rehberi</a><span id="connection-status" class="network-pill"><i></i> Yerel ağda çalışıyor</span><button id="theme-toggle" class="theme-toggle" type="button" title="Siyah temaya geç" aria-label="Siyah temaya geç">☾</button></div>
+      <div class="topbar-actions"><a class="guide-link" href="/guide" data-tr="Kullanım rehberi" data-en="User guide">Kullanım rehberi</a><div class="language-switch" role="group" aria-label="Dil seçimi"><button class="language-button active" data-language="tr" type="button">TR</button><button class="language-button" data-language="en" type="button">EN</button></div><span id="connection-status" class="network-pill"><i></i> Yerel ağda çalışıyor</span><button id="theme-toggle" class="theme-toggle" type="button" title="Siyah temaya geç" aria-label="Siyah temaya geç">☾</button></div>
     </header>
 
     <section id="landing" class="view">
       <div class="intro">
-        <p class="eyebrow">Kurum içi iletişim, dışarı çıkmadan</p>
-        <h1>Ekibinizin konuştuğu<br><em>yerel alan.</em></h1>
-        <p class="lede">Sunucu sizde, veriler sizde. Toplantılar, ekipler ve hızlı kararlar için sade bir iletişim alanı.</p>
-        <button id="new-room-button" class="button button-primary">Yeni oda oluştur <span>→</span></button>
+        <p class="eyebrow" data-tr="Kurum içi iletişim, dışarı çıkmadan" data-en="Private communication, kept in-house">Kurum içi iletişim, dışarı çıkmadan</p>
+        <h1 id="hero-title">Ekibinizin konuştuğu<br><em>yerel alan.</em></h1>
+        <p class="lede" data-tr="Sunucu sizde, veriler sizde. Toplantılar, ekipler ve hızlı kararlar için sade bir iletişim alanı." data-en="Your server, your data. A focused communication space for meetings, teams, and quick decisions.">Sunucu sizde, veriler sizde. Toplantılar, ekipler ve hızlı kararlar için sade bir iletişim alanı.</p>
+        <button id="new-room-button" class="button button-primary"><span id="new-room-label" data-tr="Yeni oda oluştur" data-en="Create a room">Yeni oda oluştur</span> <span>→</span></button>
         <div class="connection-card"><div><span id="connection-label" class="connection-label">Online</span><p id="connection-detail">Bağlantı kontrol ediliyor...</p></div><div class="connection-data"><span id="tailscale-ip">Tailscale IP: --</span><span id="authorized-user">Yetkili giriş: --</span></div></div>
       </div>
       <div class="rooms-panel">
-        <div class="section-heading"><div><p class="eyebrow">Açık odalar</p><h2>Şimdi neler oluyor?</h2></div><button id="refresh-button" class="icon-button" title="Odaları yenile">↻</button></div>
+        <div class="section-heading"><div><p class="eyebrow" data-tr="Açık odalar" data-en="Open rooms">Açık odalar</p><h2 id="rooms-title" data-tr="Şimdi neler oluyor?" data-en="What is happening now?">Şimdi neler oluyor?</h2></div><button id="refresh-button" class="icon-button" title="Odaları yenile" data-title-tr="Odaları yenile" data-title-en="Refresh rooms">↻</button></div>
         <div id="room-list" class="room-list"><div class="empty-state">Odalar yükleniyor...</div></div>
       </div>
     </section>
@@ -32,7 +32,7 @@
       <div id="request-panel" class="request-panel hidden"><div><p class="eyebrow">Oda erişimi</p><strong>Onay bekleyenler</strong></div><div id="request-list"></div></div>
       <div class="chat-layout"><div id="message-list" class="message-list"></div><form id="message-form" class="composer"><input id="message-input" autocomplete="off" maxlength="2000" placeholder="Mesajınızı yazın..."><button class="button button-primary" title="Mesaj gönder">Gönder <span>↗</span></button></form></div>
     </section>
-    <section class="feedback-section"><div><p class="eyebrow">Görüşlerin önemli</p><h2>theta-workplace’i birlikte geliştirelim.</h2><p class="feedback-copy">Bir hata, fikir veya geliştirme önerisi bırak. Mesajın doğrudan ekibe iletilir.</p></div><form id="feedback-form" class="feedback-form"><select id="feedback-category"><option>Genel</option><option>Hata bildirimi</option><option>Öneri</option><option>Tasarım</option></select><input id="feedback-name" maxlength="80" placeholder="Adınız (isteğe bağlı)"><input id="feedback-email" type="email" maxlength="160" placeholder="E-posta (isteğe bağlı)"><textarea id="feedback-message" maxlength="5000" required placeholder="Mesajınız..."></textarea><button class="button button-primary" type="submit">Feedback gönder <span>↗</span></button><p id="feedback-status" class="form-error"></p></form></section>
+    <section class="feedback-section"><div><p class="eyebrow" data-tr="Görüşlerin önemli" data-en="Your feedback matters">Görüşlerin önemli</p><h2 data-tr="theta-workplace’i birlikte geliştirelim." data-en="Let's improve theta-workplace together.">theta-workplace’i birlikte geliştirelim.</h2><p class="feedback-copy" data-tr="Bir hata, fikir veya geliştirme önerisi bırak. Mesajın doğrudan ekibe iletilir." data-en="Share a bug, idea, or improvement. Your message goes directly to the team.">Bir hata, fikir veya geliştirme önerisi bırak. Mesajın doğrudan ekibe iletilir.</p></div><form id="feedback-form" class="feedback-form"><select id="feedback-category"><option value="Genel">Genel</option><option value="Hata bildirimi">Hata bildirimi</option><option value="Öneri">Öneri</option><option value="Tasarım">Tasarım</option></select><input id="feedback-name" maxlength="80" placeholder="Adınız (isteğe bağlı)"><input id="feedback-email" type="email" maxlength="160" placeholder="E-posta (isteğe bağlı)"><textarea id="feedback-message" maxlength="5000" required placeholder="Mesajınız..."></textarea><button class="button button-primary" type="submit"><span id="feedback-button-label" data-tr="Feedback gönder" data-en="Send feedback">Feedback gönder</span> <span>↗</span></button><p id="feedback-status" class="form-error"></p></form></section>
     <footer class="site-footer">theta-project made by deb</footer>
   </main>
 

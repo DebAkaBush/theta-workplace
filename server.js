@@ -189,13 +189,30 @@ const server = http.createServer(async (req, res) => {
     } catch (error) { return json(res, 400, { error: error.message }); }
   }
 
-  const roomMatch = pathname.match(/^\/api\/rooms\/([^/]+)(?:\/(join|messages))?$/);
+  const roomMatch = pathname.match(/^\/api\/rooms\/([^/]+)(?:\/(join|messages|command))?$/);
   const requestMatch = pathname.match(/^\/api\/rooms\/([^/]+)\/requests(?:\/([^/]+)(?:\/(approve|deny))?)?$/);
   if (roomMatch || requestMatch) {
     const id = roomMatch ? roomMatch[1] : requestMatch[1];
     const action = roomMatch?.[2];
     const room = rooms.find(item => item.id === id);
     if (!room) return json(res, 404, { error: 'Oda bulunamadı.' });
+
+    if (action === 'command' && method === 'POST') {
+      const session = sessionFromRequest(req);
+      if (!session || session.roomId !== id) return json(res, 401, { error: 'Bu oda için giriş yapmanız gerekiyor.' });
+      try {
+        const input = await body(req);
+        const command = String(input.command || '').trim().toLowerCase();
+        if (command !== '/turnoff') return json(res, 400, { error: 'Bilinmeyen komut.' });
+        if (room.passwordHash && !validPassword(String(input.password || ''), room)) return json(res, 401, { error: 'Oda parolası hatalı.' });
+        rooms = rooms.filter(item => item.id !== id);
+        for (const [token, activeSession] of sessions) {
+          if (activeSession.roomId === id) sessions.delete(token);
+        }
+        saveRooms();
+        return json(res, 200, { closed: true, command });
+      } catch (error) { return json(res, 400, { error: error.message }); }
+    }
 
     if (!action && method === 'DELETE') {
       const session = sessionFromRequest(req);
